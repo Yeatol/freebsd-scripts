@@ -2,8 +2,7 @@
 
 set -e
 
-NAME="Yeatol"
-EMAIL="vim@vimer.org"
+GITHUB_ID=${1:-Yeatol}
 
 pkg_install() {
     package=$1
@@ -256,22 +255,11 @@ git_ports_trap() {
 
 pkg_install git-lite
 
-pkg_install portfmt
-
 pkg_install portlint
 
 pkg_install poudriere
 
-git config --global user.name "$NAME"
-
-git config --global user.email "$EMAIL"
-
-if [ "$NAME" = "Yeatol" ]; then
-    pkg_install vim
-    git_clone https://github.com/Yeatol/vim.git /usr/local/etc/vim main
-fi
-
-git_clone "https://github.com/$NAME/freebsd-ports.git" /usr/ports main
+git_clone "https://github.com/$GITHUB_ID/freebsd-ports.git" /usr/ports main
 
 git_ports_trap
 
