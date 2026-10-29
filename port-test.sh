@@ -140,6 +140,12 @@ portlint_testport() {
     conf_set /etc/make.conf DEVELOPER yes
     conf_set /etc/make.conf ALLOW_UNSUPPORTED_SYSTEM yes
 
+    if ! pkgname=$(make -C "/usr/ports/$port" -V PKGNAME); then
+        printf 'Failed to get version from /usr/ports/%s/Makefile\n' "$port" >&2
+        return 1
+    fi
+    printf '%s\n' "$pkgname"
+
     echo "portlint -A /usr/ports/$port"
     portlint -A "/usr/ports/$port"
 }
